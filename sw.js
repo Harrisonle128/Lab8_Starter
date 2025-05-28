@@ -1,7 +1,7 @@
 // sw.js - This file needs to be in the root of the directory to work,
 //         so do not move it next to the other scripts
 
-const CACHE_NAME = 'lab-8-starter';
+const CACHE_NAME = 'lab-8-starter-v1';
 
 const STATIC_ASSETS = [
   'index.html',
@@ -43,6 +43,17 @@ self.addEventListener('activate', function (event) {
 
 // Intercept fetch requests and cache them
 self.addEventListener('fetch', function (event) {
+  const req = event.request;
+  const url = new URL(req.url);
+
+  // ONLY handle GET requests for your app's own files (same origin, http/https)
+  if (req.method !== 'GET' ||
+      url.origin !== self.location.origin ||
+      !(url.protocol === 'http:' || url.protocol === 'https:')
+  ) {
+    // let the browser handle this request normally
+    return;
+  }
   // We added some known URLs to the cache above, but tracking down every
   // subsequent network request URL and adding it manually would be very taxing.
   // We will be adding all of the resources not specified in the intiial cache
@@ -60,17 +71,15 @@ self.addEventListener('fetch', function (event) {
   //            Otherwise fetch the resource, add it to the cache, and return
   //            network response.
   event.respondWith(
-    caches.open(CACHE_NAME).then(function (cache) {
-      return cache.match(event.request).then(function (response) {
-        if (response) {
-          return response;
-        }
-        return fetch(event.request).then(function (networkResponse) {
-          // Save new requests to cache
-          cache.put(event.request, networkResponse.clone());
+    caches.open(CACHE_NAME).then(cache =>
+      cache.match(req).then(cached => {
+        if (cached) return cached;
+        return fetch(req).then(networkResponse => {
+          // cache the new file (won't run for chrome-extension://)
+          cache.put(req, networkResponse.clone());
           return networkResponse;
         });
-      });
-    })
+      })
+    )
   );
 });
