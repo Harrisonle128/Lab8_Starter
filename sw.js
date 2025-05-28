@@ -3,27 +3,27 @@
 
 const CACHE_NAME = 'lab-8-starter';
 
-const RECIPE_URLs = [
-  '/recipes/1_50-thanksgiving-side-dishes.json',
-  '/recipes/2_roasting-turkey-breast-with-stuffing.json',
-  '/recipes/3_moms-cornbread-stuffing.json',
-  '/recipes/4_50-indulgent-thanksgiving-side-dishes-for-any-holiday-gathering.json',
-  '/recipes/5_healthy-thanksgiving-recipe-crockpot-turkey-breast.json',
-  '/recipes/6_one-pot-thanksgiving-dinner.json',
+const STATIC_ASSETS = [
+  'index.html',
+  'manifest.json',
+  'assets/scripts/main.js',
+  'assets/scripts/RecipeCard.js',
+  'assets/styles/main.css',
+  'assets/images/icons/icon-192x192.png',
+  'assets/images/icons/icon-256x256.png',
+  'assets/images/icons/icon-384x384.png',
+  'assets/images/icons/icon-512x512.png',
 ];
 
-const STATIC_ASSETS = [
-  '/',
-  '/index.html',
-  '/manifest.json',
-  '/assets/scripts/main.js',
-  '/assets/scripts/RecipeCard.js',
-  '/assets/styles/main.css',
-  '/assets/images/icons/icon-192x192.png',
-  '/assets/images/icons/icon-256x256.png',
-  '/assets/images/icons/icon-384x384.png',
-  '/assets/images/icons/icon-512x512.png',
+const RECIPE_URLs = [
+  'recipes/1_50-thanksgiving-side-dishes.json',
+  'recipes/2_roasting-turkey-breast-with-stuffing.json',
+  'recipes/3_moms-cornbread-stuffing.json',
+  'recipes/4_50-indulgent-thanksgiving-side-dishes-for-any-holiday-gathering.json',
+  'recipes/5_healthy-thanksgiving-recipe-crockpot-turkey-breast.json',
+  'recipes/6_one-pot-thanksgiving-dinner.json',
 ];
+
 
 // Installs the service worker. Feed it some initial URLs to cache
 self.addEventListener('install', function (event) {
